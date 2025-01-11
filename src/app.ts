@@ -1,6 +1,5 @@
-import cors from "cors";
 import express from 'express';
-
+import cors from 'cors';
 import path from "path";
 import router from './router';
 import routerAdmin from './router-admin';
@@ -25,12 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(
-    cors({
-        origin: true,           // Allows all origins
-        credentials: true        // Enables cookies and authorization headers across origins
-    })
-);
+app.use(cors({credentials: true, origin: true }));
 app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT));
 

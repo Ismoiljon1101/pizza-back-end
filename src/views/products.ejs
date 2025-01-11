@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="/css/products.css" />
 
-<body data-theme="dark">
+<body>
   <div class="products-container">
     <div class="navigation-menu">
       <ul class="nav justify-content-center">
@@ -43,31 +43,26 @@
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <% products.map((val, key)=> {%>
-
-            <tbody style="background: white">
-              <td><%= key +1 %></td>
-              <td><%= val.productName %></td>
-              <td><%= val.productCollection%></td>
-              <td>
-                <%=val.productCollection === "DRINK"? val.productVolume :
-                val.productSize %>
-              </td>
-              <td><%= val.productPrice%></td>
-              <td><%= val.productLeftCount %></td>
-
-              <td>
-                <select
-                  class="spec-select new-product-status"
-                  id="<%= val._id%>"
-                >
-                  <option value="PAUSE" <%= val.productStatus ==="PAUSE"?  'selected': '' %> >PAUSE</option>
-                  <option value="PROCESS"<%= val.productStatus ==="PROCESS"?  'selected': '' %> >PROCESS</option>
-                  <option value="DELETE" <%= val.productStatus ==="DELETE"?  'selected': '' %>>DELETE</option>
-                </select>
-              </td>
-            </tbody>
-            <% })%>
+            <!--  LOOP PRODUCTS: START  -->
+            <% products.map(function (value, key){ %>
+              <tbody style="background: white">
+                <td><%= key + 1 %></td>
+                <td><%= value.productName %></td>
+                <td><%= value.productCollection %></td>
+                <td><%= value.productCollection === 'DRINK' ? value.productVolume : value.productSize %></td>
+                <td><%= value.productPrice %></td>
+                <td><%= value.productLeftCount %></td>
+                <td>
+                  <select class="spec-select new-product-status" id= "<%= value._id%>" >
+                    <option value="PAUSE" <%= value.productStatus === 'PAUSE' ? 'selected': '' %> >PAUSE</option>
+                    <option value="PROCESS" <%= value.productStatus === 'PROCESS' ? 'selected': '' %> >PROCESS</option>
+                    <option value="DELETE" <%= value.productStatus === 'DELETE' ? 'selected': '' %> > DELETE</option>
+                  </select>
+                </td>
+              </tbody>
+            <% }) %>
+           
+            <!--  LOOP PRODUCTS: END  -->
           </table>
           <div
             class="long-input"
@@ -79,7 +74,7 @@
           </div>
         </div>
         <form
-          onsubmit="return validateForm()"
+        onsubmit = "return validateForm()";
           action="/admin/product/create"
           method="POST"
           class="dish-container"
@@ -137,8 +132,8 @@
               </select>
             </div>
 
-            <div class="half-input" id="product-size">
-              <label>Pizza Size</label>
+            <div class="half-input" id="product-collection">
+              <label>Dish Volume</label>
               <select class="product-size" name="productSize">
                 <option value="SMALL">Small</option>
                 <option value="NORMAL" selected>Normal</option>
@@ -173,8 +168,8 @@
                   id="file"
                   name="productImages"
                   class="image-one"
-                  onchange="previewFileHendler(this, 1)"
-          
+                  required
+                  onchange="previewFileHandler(this, 1)"
                 />
               </div>
               <div class="upload-img-box">
@@ -184,7 +179,7 @@
                   id="file"
                   name="productImages"
                   class="image-two"
-                  onchange="previewFileHendler(this, 2)"
+                  onchange="previewFileHandler(this, 2)"
                 />
               </div>
               <div class="upload-img-box">
@@ -194,7 +189,7 @@
                   id="file"
                   name="productImages"
                   class="image-three"
-                  onchange="previewFileHendler(this, 3)"
+                  onchange="previewFileHandler(this, 3)"
                 />
               </div>
               <div class="upload-img-box">
@@ -204,7 +199,7 @@
                   id="file"
                   name="productImages"
                   class="image-four"
-                  onchange="previewFileHendler(this, 4)"
+                  onchange="previewFileHandler(this, 5)"
                 />
               </div>
               <div class="upload-img-box">
@@ -214,7 +209,7 @@
                   id="file"
                   name="productImages"
                   class="image-five"
-                  onchange="previewFileHendler(this, 5)"
+                  onchange="previewFileHandler(this, 5)"
                 />
               </div>
               <input name="restaurantIid" class="restaurant-id" hidden />
@@ -222,7 +217,7 @@
           </div>
 
           <div class="operation-buttons">
-            <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
+            <button class="btn btn-danger" id="cancel-btn">Cancel</button>
             <button type="submit" class="btn btn-primary" id="create-btn">
               Create
             </button>

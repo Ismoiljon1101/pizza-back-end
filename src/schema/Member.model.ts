@@ -17,7 +17,7 @@ const memberSchema =  new Schema ({
 
     memberNick: {
         type: String,
-        index: { uniques: true, sparse: true},
+        index: { unique: true, sparse: true},
         required: true,
     },
 
@@ -43,7 +43,7 @@ const memberSchema =  new Schema ({
         type: String,
     },
 
-    memberImg: {
+    memberImage: {
         type: String,
     },
 
@@ -52,7 +52,7 @@ const memberSchema =  new Schema ({
         default: 0,
     },
 },
-{ timestamps: true}   //update, created 
+{ timestamps: true}  //update, created 
 );
 
 
