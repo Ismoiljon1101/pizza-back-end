@@ -40,6 +40,7 @@ class ProductService {
             {$skip: (inquiry.page *1 -1) * inquiry.limit},
             {$limit: inquiry.limit * 1},
         ]).exec()
+        console.log("\n\nResult in Product service:", result);
 
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
         return result;
@@ -95,6 +96,8 @@ class ProductService {
        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
        console.log("Result:", result);
+       if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+       console.log("\n\nResult:", result);
 
        return result;
     }

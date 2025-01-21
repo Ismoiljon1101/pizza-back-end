@@ -16,7 +16,7 @@ const productController: T  = {};
         console.log('getProducts');
         const {page, limit, order, productCollection, search} = req.query;
         console.log(`page: ${page}, order: ${order}`);
-        // console.log(req.query);
+        console.log(req.query);
         const inquiry: ProductInquiry ={
             order: String(order),
             page: Number(page),
@@ -30,6 +30,8 @@ const productController: T  = {};
         
         
         const result = await productService.getProducts(inquiry);
+
+        console.log("\n\nresult:", result);
 
         res.status(HttpCode.OK).json(result); 
     } catch (err) {
@@ -62,6 +64,7 @@ productController.getAllProducts = async (req: Request, res: Response) => {
     try{
         console.log('getAllProducts');
         const data =  await productService.getAllProducts();
+        if (!data) throw console.log("\nError, getAllProducts: No data found\n");
         console.log("products:", data );
         console.log("data:", data);
         res.render("products", {products: data});
