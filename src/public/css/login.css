@@ -6,10 +6,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  /* New gradient matching the chalkboard pizza theme */
+  background: linear-gradient(-45deg, #1b1b1b, #3d3d3d, #e74c3c, #f39c12);
   animation: gradient 15s ease infinite;
   -webkit-animation: gradient 15s ease infinite;
-  background-size: 200% 200%;
+  background-size: 300% 300%;
 }
 
 .login-container a {
@@ -26,6 +27,7 @@
   border-radius: 10px;
   background: #ffffff;
   padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .login-container .login-frame .login-top {
@@ -106,7 +108,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #33a0ff;
+  background: #e74c3c;
   border-radius: 10px;
   font-family: "Nunito";
   font-style: normal;
@@ -115,21 +117,15 @@
   line-height: 33px;
   letter-spacing: -0.02em;
   color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-container .login-btn:hover {
+  background: #c0392b;
 }
 
 /* Background animation */
-@-webkit-keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
