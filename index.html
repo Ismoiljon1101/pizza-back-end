@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Express MVC App - Index</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Express MVC App</h1>
+    
+    <!-- Member Section -->
+    <section id="member-section">
+      <h2>Member Actions</h2>
+      
+      <!-- Member Login -->
+      <form id="memberLoginForm">
+        <div class="form-group">
+          <label for="memberEmail">Email:</label>
+          <input type="email" id="memberEmail" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="memberPassword">Password:</label>
+          <input type="password" id="memberPassword" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Member Login</button>
+      </form>
+      
+      <!-- Member Signup -->
+      <form id="memberSignupForm" class="mt-3">
+        <div class="form-group">
+          <label for="memberSignupEmail">Email:</label>
+          <input type="email" id="memberSignupEmail" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="memberSignupPassword">Password:</label>
+          <input type="password" id="memberSignupPassword" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-secondary">Member Signup</button>
+      </form>
+      
+      <!-- Get Member Detail -->
+      <button id="memberDetailBtn" class="btn btn-info mt-3">Get Member Detail</button>
+      
+      <!-- Get Top Users -->
+      <button id="memberTopUsersBtn" class="btn btn-warning mt-3">Get Top Users</button>
+    </section>
+    
+    <hr>
+    
+    <!-- Admin Section -->
+    <section id="admin-section">
+      <h2>Admin Actions</h2>
+      
+      <!-- Admin Login -->
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label for="adminEmail">Admin Email:</label>
+          <input type="email" id="adminEmail" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="adminPassword">Password:</label>
+          <input type="password" id="adminPassword" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-danger">Admin Login</button>
+      </form>
+      
+      <!-- Admin Signup -->
+      <form id="adminSignupForm" class="mt-3">
+        <div class="form-group">
+          <label for="adminSignupEmail">Admin Email:</label>
+          <input type="email" id="adminSignupEmail" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="adminSignupPassword">Password:</label>
+          <input type="password" id="adminSignupPassword" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-secondary">Admin Signup</button>
+      </form>
+      
+      <!-- Admin Logout & Session Check -->
+      <button id="adminLogoutBtn" class="btn btn-outline-danger mt-3">Admin Logout</button>
+      <button id="checkAdminSessionBtn" class="btn btn-outline-primary mt-3">Check Admin Session</button>
+      
+      <!-- Admin Product Actions -->
+      <div class="mt-4">
+        <h3>Admin Product Actions</h3>
+        <button id="adminGetProductsBtn" class="btn btn-info">Get All Products</button>
+        
+        <!-- Create Product -->
+        <form id="adminCreateProductForm" class="mt-3">
+          <div class="form-group">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Description:</label>
+            <input type="text" id="productDescription" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-success">Create Product</button>
+        </form>
+        
+        <!-- Update Product -->
+        <form id="adminUpdateProductForm" class="mt-3">
+          <div class="form-group">
+            <label for="updateProductId">Product ID:</label>
+            <input type="text" id="updateProductId" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="updateProductName">New Product Name:</label>
+            <input type="text" id="updateProductName" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-warning">Update Product</button>
+        </form>
+      </div>
+      
+      <!-- Admin User Actions -->
+      <div class="mt-4">
+        <h3>Admin User Actions</h3>
+        <button id="adminGetUsersBtn" class="btn btn-info">Get All Users</button>
+        
+        <!-- Edit User -->
+        <form id="adminEditUserForm" class="mt-3">
+          <div class="form-group">
+            <label for="editUserId">User ID:</label>
+            <input type="text" id="editUserId" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="editUserEmail">New Email:</label>
+            <input type="email" id="editUserEmail" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-warning">Edit User</button>
+        </form>
+      </div>
+    </section>
+    
+    <!-- Output Section -->
+    <section id="output" class="mt-4">
+      <h2>Output</h2>
+      <pre id="outputArea"></pre>
+    </section>
+  </div>
+  
+  <script>
+    // Helper to show API responses
+    function displayOutput(data) {
+      document.getElementById('outputArea').textContent = JSON.stringify(data, null, 2);
+    }
+    
+    // --- Member Endpoints ---
+    
+    // Member Login
+    document.getElementById('memberLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('memberEmail').value;
+      const password = document.getElementById('memberPassword').value;
+      try {
+        const res = await fetch('/member/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Member login failed.' });
+      }
+    });
+    
+    // Member Signup
+    document.getElementById('memberSignupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('memberSignupEmail').value;
+      const password = document.getElementById('memberSignupPassword').value;
+      try {
+        const res = await fetch('/member/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Member signup failed.' });
+      }
+    });
+    
+    // Get Member Detail
+    document.getElementById('memberDetailBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/member/detail');
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Fetching member detail failed.' });
+      }
+    });
+    
+    // Get Top Users
+    document.getElementById('memberTopUsersBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/member/top-users');
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Fetching top users failed.' });
+      }
+    });
+    
+    // --- Admin Endpoints ---
+    
+    // Admin Login
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      try {
+        const res = await fetch('/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Admin login failed.' });
+      }
+    });
+    
+    // Admin Signup
+    document.getElementById('adminSignupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('adminSignupEmail').value;
+      const password = document.getElementById('adminSignupPassword').value;
+      try {
+        const res = await fetch('/admin/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Admin signup failed.' });
+      }
+    });
+    
+    // Admin Logout
+    document.getElementById('adminLogoutBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/admin/logout');
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Admin logout failed.' });
+      }
+    });
+    
+    // Check Admin Session
+    document.getElementById('checkAdminSessionBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/admin/check-me');
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Checking admin session failed.' });
+      }
+    });
+    
+    // Admin Get All Products
+    document.getElementById('adminGetProductsBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/admin/product/all');
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Fetching products failed.' });
+      }
+    });
+    
+    // Admin Create Product
+    document.getElementById('adminCreateProductForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('productName').value;
+      const description = document.getElementById('productDescription').value;
+      try {
+        const res = await fetch('/admin/product/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, description })
+        });
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Creating product failed.' });
+      }
+    });
+    
+    // Admin Update Product
+    document.getElementById('adminUpdateProductForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('updateProductId').value;
+      const name = document.getElementById('updateProductName').value;
+      try {
+        const res = await fetch('/admin/product/' + id, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name })
+        });
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Updating product failed.' });
+      }
+    });
+    
+    // Admin Get All Users
+    document.getElementById('adminGetUsersBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/admin/user/all');
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Fetching users failed.' });
+      }
+    });
+    
+    // Admin Edit User
+    document.getElementById('adminEditUserForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editUserId').value;
+      const email = document.getElementById('editUserEmail').value;
+      try {
+        const res = await fetch('/admin/user/edit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, email })
+        });
+        const data = await res.json();
+        displayOutput(data);
+      } catch (err) {
+        console.error(err);
+        displayOutput({ error: 'Editing user failed.' });
+      }
+    });
+  </script>
+</body>
+</html>
