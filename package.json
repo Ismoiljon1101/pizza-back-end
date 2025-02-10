@@ -1,7 +1,7 @@
 {
-  "name": "burak",
+  "name": "Pizza House",
   "version": "1.0.0",
-  "description": "this is burak project backend",
+  "description": "this is Pizza house project backend",
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
