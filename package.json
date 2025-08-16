@@ -4,10 +4,11 @@
   "description": "this is Pizza house project backend",
   "main": "src/server.ts",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "ts-node src/server.ts",
     "start:dev": "nodemon --exec ts-node src/server.ts",
+    "build": "tsc && node extra.js",
+    "start:prod":"NODE_ENV=production node dist/server.js",
     "train": "nodemon --exec ts-node src/train.ts",
-    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MIT",
@@ -26,7 +27,10 @@
     "mongodb": "^3.2.6",
     "mongoose": "^6.2.9",
     "morgan": "^1.10.0",
+    "socket.io-client": "^4.7.5",
+    "fs-extra":"11.1.1",
     "multer": "^1.4.5-lts.1",
+    "socket.io": "^4.7.5",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -39,10 +43,11 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
+    "@types/socket.io": "^3.0.1",
     "@types/uuid": "^10.0.0",
-    "@types/nodemon": "^3.1.4",
-    "@types/ts-node": "^10.9.2",
-    "@types/tsconfig-paths": "^4.2.0",
-    "@types/typescript": "^5.2.2"
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.2.2"
   }
 }
