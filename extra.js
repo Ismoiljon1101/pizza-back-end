@@ -14,8 +14,8 @@ async function copyDirectories() {
 
     // ensure uploads/members and uploads/products exist
     const uploadFolders = [
-      'dist/uploads/members',
-      'dist/uploads/products'
+      'uploads/members',
+      'uploads/products'
     ];
 
     for (const folder of uploadFolders) {
