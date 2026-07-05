@@ -18,9 +18,9 @@ const productController: T  = {};
         console.log(`page: ${page}, order: ${order}`);
         console.log(req.query);
         const inquiry: ProductInquiry ={
-            order: String(order),
-            page: Number(page),
-            limit: Number(limit),
+            order: order ? String(order) : "createdAt",
+            page: Number(page) || 1,
+            limit: Number(limit) || 12,
         };
 
         if(productCollection)  
